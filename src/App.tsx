@@ -17,19 +17,29 @@ function App() {
     const el = document.getElementById(id)
     if (!el) return
     const container = el.closest('.h-scroll') as HTMLElement
-    container?.scrollTo({ left: el.offsetLeft, behavior: 'smooth' })
+    if (!container) return
+
+    const left =
+      container.scrollLeft +
+      el.getBoundingClientRect().left -
+      container.getBoundingClientRect().left
+
+    container.scrollTo({ left, behavior: 'smooth' })
   }
 
   return (
     <div className="layout">
-      <Sidebar onMenuOpen={() => setMenuOpen(true)} />
+      <Sidebar
+        onMenuOpen={() => setMenuOpen(true)}
+        onHome={() => scrollToSection('hero')}
+      />
       <NavMenu
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}
         onNavigate={scrollToSection}
       />
       <HorizontalScroll>
-        <HeroSection />
+        <HeroSection onNext={() => scrollToSection('video')} />
         <VideoSection />
         <WorkSection />
         <ManifestoSection />
@@ -41,5 +51,3 @@ function App() {
 }
 
 export default App
-
-

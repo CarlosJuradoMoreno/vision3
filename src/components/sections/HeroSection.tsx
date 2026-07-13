@@ -1,4 +1,8 @@
-const HeroSection = () => {
+interface HeroSectionProps {
+  onNext: () => void
+}
+
+const HeroSection = ({ onNext }: HeroSectionProps) => {
   return (
     <section className="section" id="hero">
       {/* Background concert photo */}
@@ -24,7 +28,12 @@ const HeroSection = () => {
 
       {/* Purple CTA circle */}
       <div className="hero-cta">
-        <button className="circle-btn" aria-label="View showreel">
+        <button
+          className="circle-btn"
+          type="button"
+          aria-label="Go to showreel"
+          onClick={onNext}
+        >
           <svg viewBox="0 0 48 48" width="48" height="48" fill="none">
             <circle cx="24" cy="24" r="20" stroke="white" strokeWidth="2" />
             <circle cx="24" cy="24" r="9" stroke="white" strokeWidth="2" />
